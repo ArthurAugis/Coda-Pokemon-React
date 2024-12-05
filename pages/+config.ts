@@ -10,7 +10,7 @@ export default {
   Layout,
 
   // https://vike.dev/head-tags
-  title: "My Vike App",
+  title: "Coda-React-Pokemon",
   description: "Demo showcasing Vike",
 
   extends: vikeReact,

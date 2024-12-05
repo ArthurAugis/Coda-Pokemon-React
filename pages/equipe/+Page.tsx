@@ -105,6 +105,7 @@ export default function Page() {
                 type="text"
                 placeholder="Rechercher un Pokémon"
                 value={searchQuery}
+                className="search-input-modal"
                 onChange={(e) => setSearchQuery(e.target.value)} 
               />
               <ul>
@@ -114,7 +115,7 @@ export default function Page() {
                   </li>
                 ))}
               </ul>
-              <button onClick={closeModal}>Fermer</button>
+              <button className="close-btn" onClick={closeModal}>Fermer</button>
             </div>
           </div>
         )}

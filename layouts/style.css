@@ -92,7 +92,7 @@ body {
 
 .pokemon-img-container {
 
-  background-color: white;
+  background: url('../assets/grass.jpg');
 
   margin-top: 10%;
 
@@ -113,7 +113,7 @@ body {
 
 .pokemon-img-container-2 {
 
-  background-color: white;
+  background: url('../assets/grass.jpg');;
 
   width: 256px;
 
@@ -387,11 +387,48 @@ audio {
   }
 }
 
+@media screen and (max-width: 700px) {
+  .pokemon-details-container {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 20px;
+    background-color: #F0954C;
+    border-color: #FFEDA8;
+    border-width: 2px;
+    border-style: outset;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .pokemon-img-container-2 {
+    width: 128px;
+    height: 128px;
+  }
+
+  #pokemon-img {
+    width: 128px;
+    height: 128px;
+  }
+  
+}
+
 .search-input {
   margin-top: 1rem;
   padding: 0.5rem;
   font-size: 1rem;
   width: 238px;
+}
+
+.search-input-modal {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: calc(100% - 20px);
 }
 
 .type-filter {
@@ -462,13 +499,19 @@ ul {
 }
 li {
   padding: 8px;
-  cursor: pointer;
-}
-li:hover {
-  background-color: #f0f0f0;
 }
 
 .slot > img {
   width: 96px;
   height: 96px;
+}
+
+.close-btn {
+  color: white;
+  background-color: red;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
 }
