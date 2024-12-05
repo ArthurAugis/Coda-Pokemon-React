@@ -386,3 +386,24 @@ audio {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
 }
+
+.search-input {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.type-filter {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.type-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
