@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "../../components/Link";
 
 interface Pokemon {
   id: number;
@@ -127,6 +128,12 @@ export default function Page() {
           <img src="../../assets/pokeball.ico" id="pokeball" alt="Pokeball" />
           {count}
         </button>
+        &emsp;
+        <Link href="/equipe">
+        <button className="pokemon-number">
+          Créer mon équipe
+        </button>
+        </Link>
       </header>
       <div className="container">
         <div className="pokemon-img-container">
@@ -147,7 +154,7 @@ export default function Page() {
           />
           <div className="type-filter">
             {availableTypes
-              .filter((type) => type !== "???")
+              .filter((type) => type !== "???" && type !== "Stellaire")
               .map((type) => (
                 <label key={type} className="type-checkbox">
                   <input

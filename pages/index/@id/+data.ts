@@ -17,7 +17,7 @@ export const data = async (pageContext: PageContextServer) => {
   let species = (await responseSpecies.json());
   const frenchName = species.names.find((name: any) => name.language.name === "fr").name;
   pokemon = { ...pokemon, frenchName };
-  const variants = species.varieties;
+  let variants = species.varieties;
   pokemon = { ...pokemon, variants };
   const is_legendary = species.is_legendary;
   pokemon = { ...pokemon, is_legendary };

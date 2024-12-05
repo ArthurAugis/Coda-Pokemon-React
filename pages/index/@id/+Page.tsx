@@ -28,6 +28,9 @@ export default function Page() {
         <a href="https://bit.ly/EasterEgg_Projet_Pikachu">
           <button className="title">Pokedex de Coda</button>
         </a>
+        <Link href={`/`}>
+        <button className="pokemon-number">Retour à l'accueil</button>
+        </Link>
       </header>
       <div className="pokemon-details-container">
         <div className="pokemon-img-container-2">

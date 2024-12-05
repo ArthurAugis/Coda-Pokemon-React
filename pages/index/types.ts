@@ -63,6 +63,7 @@ export type PokemonDetails = Pokemon & {
     pokemon: {
       name: string;
       url: string;
+      variantFrenchName: string;
     }
   };
   is_legendary: boolean;

@@ -206,7 +206,7 @@ body {
     color: white;
     height: 25vh;
     float: right;
-    margin-top: 160px;
+    margin-top: 300px;
     direction: rtl;
     width: 101%;
     margin-right: -8px;
@@ -391,8 +391,7 @@ audio {
   margin-top: 1rem;
   padding: 0.5rem;
   font-size: 1rem;
-  width: 100%;
-  max-width: 300px;
+  width: 238px;
 }
 
 .type-filter {
@@ -406,4 +405,70 @@ audio {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.page-equipe {
+  height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.equipe-container {
+  gap: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 250px;
+}
+.slot {
+  background-color: white;
+  width: 96px;
+  height: 96px;
+  border-radius: 20px;
+  border-color: #f7f165;
+  border-style: solid;
+  border-width: 5px;
+  cursor: pointer;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+.input-modal {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+li {
+  padding: 8px;
+  cursor: pointer;
+}
+li:hover {
+  background-color: #f0f0f0;
+}
+
+.slot > img {
+  width: 96px;
+  height: 96px;
 }
