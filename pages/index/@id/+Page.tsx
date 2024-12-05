@@ -124,12 +124,19 @@ export default function Page() {
                   if (!pokemon.sprites[spriteKey]) return null;
                   if (spriteKey === "versions" || spriteKey === "other")
                     return null;
-
+                  if(spriteKey === "front_default") {
                   return (
                     <option key={spriteKey} value={spriteKey}>
                       {spriteKey}
                     </option>
                   );
+                } else {
+                  return (
+                    <option key={spriteKey} value={spriteKey}>
+                      {spriteKey.replace("front_", "")}
+                    </option>
+                  );
+                }
                 })}
               </select>
             </div>
