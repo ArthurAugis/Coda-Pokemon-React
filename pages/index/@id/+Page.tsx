@@ -126,7 +126,7 @@ export default function Page() {
                     return null;
                   if(spriteKey === "front_default") {
                   return (
-                    <option key={spriteKey} value={spriteKey}>
+                    <option key={spriteKey} value={spriteKey} selected>
                       {spriteKey}
                     </option>
                   );
