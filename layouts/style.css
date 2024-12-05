@@ -200,7 +200,6 @@ body {
   font-weight: 700;
 }
 
-
 @media screen and (max-width: 599px) {
   .pokemon-liste {
     overflow: auto;
@@ -284,7 +283,7 @@ body {
   }
 
   .selected {
-    width: 85%; /* Change size only for selected button */
+    width: 85%;
     height: 40px;
   }
 }
@@ -318,4 +317,72 @@ body {
 .pokemon-info p {
   font-size: 18px;
   margin: 5px 0;
+}
+
+#sprites {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#sprites:hover {
+  border-color: #888;
+  background-color: #f1f1f1;
+}
+
+#sprites:focus {
+  outline: none;
+  border-color: #4d90fe;
+  background-color: #e0f0ff;
+}
+
+#sprites option {
+  padding: 8px;
+  font-size: 16px;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+a:hover {
+  color: #f1f5f9; 
+  text-decoration: underline; 
+}
+
+a:focus {
+  outline: none;
+  color: #d1d5db;
+  text-decoration: underline;
+}
+
+audio {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+@media screen and (max-width: 700px) {
+  .pokemon-details-container {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 20px;
+    background-color: #F0954C;
+    border-color: #FFEDA8;
+    border-width: 2px;
+    border-style: outset;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
 }

@@ -10,17 +10,16 @@ interface Pokemon {
 }
 
 export default function Page() {
-  const [count, setCount] = useState(30); // Nombre de Pokémon à afficher
+  const [count, setCount] = useState(1025); // Nombre de Pokémon à afficher (Max 1025 à éviter pour ne pas faire surchauffer l'API)
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [selectedPokemonId, setSelectedPokemonId] = useState<number | null>(
     null
-  ); // ID du Pokémon sélectionné
+  );
   const [selectedImage, setSelectedImage] = useState<string>(
     "../../assets/noname.jpg"
   );
 
   useEffect(() => {
-    // Fetch Pokémon data
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=${count}`)
       .then((response) => response.json())
       .then((data) => {
@@ -29,12 +28,10 @@ export default function Page() {
         );
 
         Promise.all(pokemonPromises).then((pokemonData) => {
-          // Sort by ID
           const sortedPokemonData = pokemonData.sort(
             (a: any, b: any) => a.id - b.id
           );
 
-          // Fetch species data for all Pokémon
           const speciesPromises = sortedPokemonData.map((data: any) =>
             fetch(data.species.url).then((response) => response.json())
           );
