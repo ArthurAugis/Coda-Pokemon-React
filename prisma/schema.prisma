@@ -18,4 +18,5 @@ model TeamSlot {
   slot     Int      @unique
   pokemon  String?
   isShiny  Boolean
+  isFemale Boolean  @default(false)
 }

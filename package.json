@@ -2,6 +2,7 @@
   "scripts": {
     "dev": "tsx ./fastify-entry.ts",
     "build": "vite build",
+    "prod": "npm run build && npm run preview",
     "preview": "cross-env NODE_ENV=production tsx ./fastify-entry.ts",
     "prisma:studio": "prisma studio",
     "prisma:generate": "prisma generate"

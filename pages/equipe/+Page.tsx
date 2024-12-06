@@ -8,6 +8,8 @@ interface Pokemon {
   sprites: {
     front_default: string;
     front_shiny: string;
+    front_female?: string;
+    front_shiny_female?: string;
   };
   stats: { base_stat: number; stat: { name: string } }[];
   types: { type: { name: string; frenchName: string } }[];
@@ -17,6 +19,7 @@ interface TeamSlot {
   slot: number;
   pokemon: string | null;
   isShiny: boolean;
+  isFemale: boolean;
 }
 
 export default function Page() {
@@ -27,6 +30,7 @@ export default function Page() {
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
   const [isShiny, setIsShiny] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isFemale, setIsFemale] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,6 +84,8 @@ export default function Page() {
             sprites: {
               front_default: pokemonData.sprites.front_default,
               front_shiny: pokemonData.sprites.front_shiny,
+              front_female: pokemonData.sprites.front_female,
+              front_shiny_female: pokemonData.sprites.front_shiny_female
             },
             stats: pokemonData.stats,
             types: translatedTypes,
@@ -143,6 +149,7 @@ export default function Page() {
     setSelectedSlot(slotId);
     setModalOpen(true);
     setIsShiny(false);
+    setIsFemale(false);
   };
 
   const closeModal = () => {
@@ -152,7 +159,7 @@ export default function Page() {
 
   const selectPokemon = async (pokemon: Pokemon) => {
     if (selectedSlot !== null) {
-      const updatedSlot = await onSaveSlot(selectedSlot, pokemon.name, isShiny);
+      const updatedSlot = await onSaveSlot(selectedSlot, pokemon.name, isShiny, isFemale);
       setTeam((prevTeam) =>
         prevTeam.some((slot) => slot.slot === selectedSlot)
           ? prevTeam.map((slot) => (slot.slot === selectedSlot ? updatedSlot : slot))
@@ -194,9 +201,21 @@ export default function Page() {
             <div className="equipe-container">
               {[1, 2, 3, 4, 5, 6].map((slotId) => {
                 const slotData = team.find((slot) => slot.slot === slotId);
-                const sprite = slotData?.isShiny
-                  ? pokemonList.find((p) => p.name === slotData.pokemon)?.sprites.front_shiny
-                  : pokemonList.find((p) => p.name === slotData?.pokemon)?.sprites.front_default;
+                const sprite = (() => {
+                  const pokemon = pokemonList.find((p) => p.name === slotData?.pokemon);
+                  if (!pokemon) return null;
+                
+                  if (slotData?.isShiny) {
+                    return slotData?.isFemale && pokemon.sprites.front_shiny_female
+                      ? pokemon.sprites.front_shiny_female
+                      : pokemon.sprites.front_shiny;
+                  } else {
+                    return slotData?.isFemale && pokemon.sprites.front_female
+                      ? pokemon.sprites.front_female
+                      : pokemon.sprites.front_default;
+                  }
+                })();
+                
 
                 return (
                   <div
@@ -250,6 +269,14 @@ export default function Page() {
                       onChange={(e) => setIsShiny(e.target.checked)}
                     />
                     Shiny
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={isFemale}
+                      onChange={(e) => setIsFemale(e.target.checked)}
+                    />
+                    Femelle
                   </label>
                   <ul>
                     {filteredPokemonList.map((pokemon) => (

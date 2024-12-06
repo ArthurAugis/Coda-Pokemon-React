@@ -2,11 +2,11 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const onSaveSlot = async (slot: number, pokemon: string | null, isShiny: boolean) => {
+export const onSaveSlot = async (slot: number, pokemon: string | null, isShiny: boolean, isFemale: boolean) => {
   const teamSlot = await prisma.teamSlot.upsert({
     where: { slot },
-    update: { pokemon, isShiny },
-    create: { slot, pokemon, isShiny },
+    update: { pokemon, isShiny, isFemale },
+    create: { slot, pokemon, isShiny, isFemale },
   });
   return teamSlot;
 };
