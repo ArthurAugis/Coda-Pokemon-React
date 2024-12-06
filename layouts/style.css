@@ -137,6 +137,20 @@ body {
 
   border-radius: 15px;
 
+  image-rendering: pixelated;
+
+}
+
+#pokemon-img-2 {
+
+  width: 256px;
+
+  height: 256px;
+
+  border-radius: 15px;
+
+  image-rendering: pixelated;
+
 }
 
 .pokemon-liste::-webkit-scrollbar {
@@ -198,53 +212,6 @@ body {
   border-radius: 20px;
   color: #ffffff;
   font-weight: 700;
-}
-
-@media screen and (max-width: 599px) {
-  .pokemon-liste {
-    overflow: auto;
-    color: white;
-    height: 25vh;
-    float: right;
-    margin-top: 300px;
-    direction: rtl;
-    width: 101%;
-    margin-right: -8px;
-  }
-
-  .pokemon {
-    background-color: #F0954C;
-    border-color: #FFEDA8;
-    width: 80%;
-    height: 35px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    margin-top: 1px;
-    color: white;
-    font-size: 24px;
-    font-weight: 700;
-    transition: width 0.3s ease-in-out, height 0.3s ease-in-out; 
-  }
-  
-  .pokemon:hover {
-    width: 90%;
-    height: 40px;
-  }
-
-  .ajoutpokemon, .pokemon-img-container {
-    margin: 0 auto;
-  }
-
-  .pokemon-img-container
-  {
-    margin-top: 15px;
-  }
-
-  .ajoutpokemon
-  {
-    margin-left: -5px;
-    margin-top: 2px;
-  }
 }
 
 @media screen and (min-width: 600px) {
@@ -508,10 +475,79 @@ li {
 
 .close-btn {
   color: white;
-  background-color: red;
+  background-color: black;
   border: none;
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
+}
+
+.remove-btn {
+  color: white;
+  background-color: red;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.modal-content > ul > li {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 599px) {
+  .pokemon-liste {
+    overflow: auto;
+    color: white;
+    height: 25vh;
+    float: right;
+    margin-top: 300px;
+    direction: rtl;
+    width: 101%;
+    margin-right: -8px;
+  }
+
+  .page-equipe {
+    display: block;
+    margin-top: 75px;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+
+  .pokemon {
+    background-color: #F0954C;
+    border-color: #FFEDA8;
+    width: 80%;
+    height: 35px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-top: 1px;
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out; 
+  }
+  
+  .pokemon:hover {
+    width: 90%;
+    height: 40px;
+  }
+
+  .ajoutpokemon, .pokemon-img-container {
+    margin: 0 auto;
+  }
+
+  .pokemon-img-container
+  {
+    margin-top: 15px;
+  }
+
+  .ajoutpokemon
+  {
+    margin-left: -5px;
+    margin-top: 2px;
+  }
 }

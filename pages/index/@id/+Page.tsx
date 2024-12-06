@@ -8,6 +8,14 @@ export default function Page() {
   const [selectedSprite, setSelectedSprite] = useState(
     pokemon.sprites.front_default
   );
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (pokemon && pokemon.sprites) {
+      setSelectedSprite(pokemon.sprites.front_default);
+      setIsLoading(false);
+    }
+  }, [pokemon]);
 
   const handleSpriteChange = (e: { target: { value: string } }) => {
     if (!pokemon.sprites[e.target.value as keyof typeof pokemon.sprites])
@@ -16,11 +24,13 @@ export default function Page() {
     setSelectedSprite(pokemon.sprites[selectedIndex]);
   };
 
-  useEffect(() => {
-    if (pokemon && pokemon.sprites) {
-      setSelectedSprite(pokemon.sprites.front_default);
-    }
-  }, [pokemon]);
+  if (isLoading) {
+    return (
+      <div className="loading">
+        <h1>Chargement des données Pokémon...</h1>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -29,7 +39,7 @@ export default function Page() {
           <button className="title">Pokedex de Coda</button>
         </a>
         <Link href={`/`}>
-        <button className="pokemon-number">Retour à l'accueil</button>
+          <button className="pokemon-number">Retour à l'accueil</button>
         </Link>
       </header>
       <div className="pokemon-details-container">
@@ -83,14 +93,12 @@ export default function Page() {
           <p>
             <strong>Statistiques : </strong>
           </p>
-          {pokemon.stats.map(
-            (stat) => (
-              <li key={stat.stat.name}>
-                <strong>{stat.stat.name} : </strong>
-                {stat.base_stat}
-              </li>
-            )
-          )}
+          {pokemon.stats.map((stat) => (
+            <li key={stat.stat.name}>
+              <strong>{stat.stat.name} : </strong>
+              {stat.base_stat}
+            </li>
+          ))}
           <p>
             <strong>Taux de capture : </strong>
             {pokemon.captureRate} (Entre 1 et 255)
@@ -127,19 +135,19 @@ export default function Page() {
                   if (!pokemon.sprites[spriteKey]) return null;
                   if (spriteKey === "versions" || spriteKey === "other")
                     return null;
-                  if(spriteKey === "front_default") {
-                  return (
-                    <option key={spriteKey} value={spriteKey} selected>
-                      {spriteKey}
-                    </option>
-                  );
-                } else {
-                  return (
-                    <option key={spriteKey} value={spriteKey}>
-                      {spriteKey.replace("front_", "")}
-                    </option>
-                  );
-                }
+                  if (spriteKey === "front_default") {
+                    return (
+                      <option key={spriteKey} value={spriteKey} selected>
+                        {spriteKey}
+                      </option>
+                    );
+                  } else {
+                    return (
+                      <option key={spriteKey} value={spriteKey}>
+                        {spriteKey.replace("front_", "")}
+                      </option>
+                    );
+                  }
                 })}
               </select>
             </div>

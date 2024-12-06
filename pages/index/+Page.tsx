@@ -14,17 +14,18 @@ interface Pokemon {
 export default function Page() {
   const [count, setCount] = useState(1025); // Nombre de Pokémon à afficher (Max 1025 à éviter pour ne pas faire surchauffer l'API)
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
-  const [selectedPokemonId, setSelectedPokemonId] = useState<number | null>(
-    null
-  );
+  const [selectedPokemonId, setSelectedPokemonId] = useState<number | null>(null);
   const [selectedImage, setSelectedImage] = useState<string>(
     "../../assets/noname.jpg"
   );
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [availableTypes, setAvailableTypes] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetch("https://pokeapi.co/api/v2/type")
       .then((response) => response.json())
       .then((typeData) => {
@@ -88,6 +89,7 @@ export default function Page() {
                   );
 
                   setPokemonList(enrichedPokemonData);
+                  setIsLoading(false);
                 });
               });
             });
@@ -130,60 +132,70 @@ export default function Page() {
         </button>
         &emsp;
         <Link href="/equipe">
-        <button className="pokemon-number">
-          Créer mon équipe
-        </button>
+          <button className="pokemon-number">Créer mon équipe</button>
         </Link>
       </header>
       <div className="container">
-        <div className="pokemon-img-container">
-          <img src={selectedImage} id="pokemon-img" alt="Selected Pokémon" />
-          <a
-            href="https://github.com/ArthurAugis/Coda-Pokemon-React"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="github">Github</button>
-          </a>
-          <input
-            type="text"
-            placeholder="Rechercher un Pokémon"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
-          <div className="type-filter">
-            {availableTypes
-              .filter((type) => type !== "???" && type !== "Stellaire")
-              .map((type) => (
-                <label key={type} className="type-checkbox">
-                  <input
-                    type="checkbox"
-                    value={type}
-                    checked={selectedTypes.includes(type)}
-                    onChange={() => toggleType(type)}
-                  />
-                  {type}
-                </label>
-              ))}
+        {isLoading ? (
+          <div className="loading">
+            <h1>Chargement des Pokémon...</h1>
           </div>
-        </div>
-        <div className="pokemon-liste">
-          {filteredPokemon.map((pokemon) => (
-            <div key={pokemon.id}>
-              <a href={`/${pokemon.id}`}>
-                <button
-                  className={`pokemon ${
-                    selectedPokemonId === pokemon.id ? "selected" : ""
-                  }`}
-                  onMouseOver={() => handleMouseOver(pokemon)}
-                >
-                  {pokemon.frenchName}
-                </button>
+        ) : (
+          <>
+            <div className="pokemon-img-container">
+              <img
+                src={selectedImage}
+                id="pokemon-img-2"
+                alt="Selected Pokémon"
+              />
+              <a
+                href="https://github.com/ArthurAugis/Coda-Pokemon-React"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="github">Github</button>
               </a>
+              <input
+                type="text"
+                placeholder="Rechercher un Pokémon"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+              <div className="type-filter">
+                {availableTypes
+                  .filter((type) => type !== "???" && type !== "Stellaire")
+                  .map((type) => (
+                    <label key={type} className="type-checkbox">
+                      <input
+                        type="checkbox"
+                        value={type}
+                        checked={selectedTypes.includes(type)}
+                        onChange={() => toggleType(type)}
+                      />
+                      {type}
+                    </label>
+                  ))}
+              </div>
             </div>
-          ))}
-        </div>
+            <div className="pokemon-liste">
+              {filteredPokemon.map((pokemon) => (
+                <div key={pokemon.id}>
+                  <a href={`/${pokemon.id}`}>
+                    <button
+                      className={`pokemon ${
+                        selectedPokemonId === pokemon.id ? "selected" : ""
+                      }`}
+                      onMouseOver={() => handleMouseOver(pokemon)}
+                    >
+                      {pokemon.frenchName}
+                    </button>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </>
   );
