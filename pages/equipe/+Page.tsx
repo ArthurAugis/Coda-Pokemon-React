@@ -47,59 +47,43 @@ export default function Page() {
     const pokemonPromises = data.results.map((pokemon: any) =>
       fetch(pokemon.url)
         .then((res) => res.json())
-        .then((pokemonData) => {
-          return fetch(pokemonData.species.url)
-            .then((res) => res.json())
-            .then((speciesData) => {
-              const frenchName = speciesData.names.find(
+        .then(async (pokemonData) => {
+          const speciesResponse = await fetch(pokemonData.species.url);
+          const speciesData = await speciesResponse.json();
+
+          const frenchName = speciesData.names.find(
+            (entry: any) => entry.language.name === "fr"
+          )?.name;
+
+          const translatedTypes = await Promise.all(
+            pokemonData.types.map(async (typeObj: any) => {
+              const typeResponse = await fetch(typeObj.type.url);
+              const typeData = await typeResponse.json();
+
+              const frenchTypeName = typeData.names.find(
                 (entry: any) => entry.language.name === "fr"
               )?.name;
 
-              const translatedTypes = pokemonData.types.map((typeObj: any) => {
-                const typeResponse = typeObj.type;
-
-                // Map des types anglais en français
-                const typeTranslation: { [key: string]: string } = {
-                  normal: "Normal",
-                  fire: "Feu",
-                  water: "Eau",
-                  grass: "Plante",
-                  electric: "Électrique",
-                  ice: "Glace",
-                  fighting: "Combat",
-                  poison: "Poison",
-                  ground: "Sol",
-                  flying: "Vol",
-                  psychic: "Psy",
-                  bug: "Insecte",
-                  rock: "Roche",
-                  ghost: "Spectre",
-                  dragon: "Dragon",
-                  dark: "Ténèbres",
-                  steel: "Acier",
-                  fairy: "Fée",
-                };
-
-                return {
-                  ...typeObj,
-                  type: {
-                    ...typeResponse,
-                    frenchName: typeTranslation[typeResponse.name] || typeResponse.name,
-                  },
-                };
-              });
-
               return {
-                id: pokemonData.id,
-                name: frenchName || pokemonData.name,
-                sprites: {
-                  front_default: pokemonData.sprites.front_default,
-                  front_shiny: pokemonData.sprites.front_shiny,
+                ...typeObj,
+                type: {
+                  ...typeObj.type,
+                  frenchName: frenchTypeName || typeObj.type.name,
                 },
-                stats: pokemonData.stats,
-                types: translatedTypes,
               };
-            });
+            })
+          );
+
+          return {
+            id: pokemonData.id,
+            name: frenchName || pokemonData.name,
+            sprites: {
+              front_default: pokemonData.sprites.front_default,
+              front_shiny: pokemonData.sprites.front_shiny,
+            },
+            stats: pokemonData.stats,
+            types: translatedTypes,
+          };
         })
     );
 
@@ -114,7 +98,6 @@ export default function Page() {
     const statsAverage: { [key: string]: number } = {};
     const typeCounts: { [key: string]: number } = {};
 
-    // Calcul des stats moyennes
     teamPokemons.forEach((pokemon) => {
       pokemon.stats.forEach((stat) => {
         const translatedStatName = translateStatName(stat.stat.name);
@@ -122,7 +105,6 @@ export default function Page() {
           (statsAverage[translatedStatName] || 0) + stat.base_stat;
       });
 
-      // Comptage des types (en français)
       pokemon.types.forEach((type) => {
         const frenchType = type.type.frenchName;
         typeCounts[frenchType] = (typeCounts[frenchType] || 0) + 1;
@@ -233,7 +215,7 @@ export default function Page() {
               })}
             </div>
             <div className="team-stats-container">
-              <h2>Moyenne de l'équipe</h2>
+              <h2>Statistiques de l'équipe</h2>
               <ul>
                 {Object.entries(statsAverage).map(([stat, value]) => (
                   <li key={stat}>
@@ -272,7 +254,7 @@ export default function Page() {
                   <ul>
                     {filteredPokemonList.map((pokemon) => (
                       <li key={pokemon.id} onClick={() => selectPokemon(pokemon)}>
-                        {pokemon.name} {/* Nom en français */}
+                        {pokemon.name}
                       </li>
                     ))}
                   </ul>
