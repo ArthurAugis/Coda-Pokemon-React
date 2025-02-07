@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "../../components/Link";
+import pokeball from '../../assets/pokeball.ico';
+import noname from '../../assets/noname.jpg';
 
 interface Pokemon {
   id: number;
@@ -15,9 +17,7 @@ export default function Page() {
   const [count, setCount] = useState(1025); // Nombre de Pokémon à afficher (Max 1025 à éviter pour ne pas faire surchauffer l'API)
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [selectedPokemonId, setSelectedPokemonId] = useState<number | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string>(
-    "../../assets/noname.jpg"
-  );
+  const [selectedImage, setSelectedImage] = useState<string>(noname);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [availableTypes, setAvailableTypes] = useState<string[]>([]);
@@ -127,7 +127,7 @@ export default function Page() {
           <button className="title">Pokedex de Coda</button>
         </a>
         <button className="pokemon-number">
-          <img src="../../assets/pokeball.ico" id="pokeball" alt="Pokeball" />
+          <img src={pokeball} id="pokeball" alt="Pokeball" />
           {count}
         </button>
         &emsp;
