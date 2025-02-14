@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "../../components/Link";
-import pokeball from '../../assets/pokeball.ico';
+import pokeball from '../../assets/Pokeball.ico';
 import noname from '../../assets/noname.jpg';
 
 interface Pokemon {
