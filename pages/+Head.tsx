@@ -1,8 +1,7 @@
 // https://vike.dev/Head
 
 import React from "react";
-import logoUrl from "../assets/logo.svg";
-import pokeball from "../assets/pokeball.ico";
+import pokeball from "../assets/Pokeball.ico";
 
 export default function HeadDefault() {
   return (
